@@ -16,7 +16,7 @@
     <style>
       @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css");
       header {
-        background-color: #f34c5e;
+        background-color: #70b5f1;
         color: #fff;
       }
 
@@ -39,9 +39,9 @@
     {% include 'components/message.html'%}
     <!-- Add todo form -->
     {% if user.is_authenticated %} {% include 'components/add-todo.html' %} 
-    {%include 'components/tasks.html' %} {% endif %}
+    {%include 'components/posts.html' %} {% endif %}
 
-    <!-- tasks -->
+    <!-- posts -->
 
     {% block content %}{% endblock content %}
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>

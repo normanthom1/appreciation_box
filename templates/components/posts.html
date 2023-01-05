@@ -1,0 +1,33 @@
+{% if user.is_authenticated %}
+
+<section class="mt-3 container" id="post-list">
+    <div class="row">
+      <div class="col-md-7 mx-auto">
+         <div class="card p-2">
+          <div class="card-title">
+            <h3>This weeks messages</h3>
+          </div>
+         <div class="card-body">
+           <!-- first -->
+           {% for post in posts %}
+          <div class="input-group mb-2">
+
+            <input
+              type="text"
+              class="form-control"
+              disabled
+              id="specificSizeInputGroupUsername"
+              placeholder="{{post.post}}"
+            />
+            <div class="input-group-text bg-info"><span class="badge text-dark">{{post.created_at | date:"d M Y" }}</span></i></i></div>
+            
+
+            <div class="input-group-text bg-warning" hx-delete = "{% url 'delete-todo' post.id %}"  hx-trigger = "click" hx-target = "#post-list" hx-swap = "innerHTMl" hx-confirm = "Are You sure You wan't to delete:"><i class="bi bi-trash"></i></div>
+          </div>
+          {% endfor %}
+         </div>
+         </div>
+      </div>
+    </div>
+  </section>
+  {% endif %}

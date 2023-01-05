@@ -1,20 +1,27 @@
 <section class="mt-5 container">
   <div class="row">
     <div class="col-md-7 mx-auto">
-      <form hx-post = "{% url 'add-todo' %}" hx-target = "#task-list" hx-swap = "innerHTMl">
+      <form hx-post = "{% url 'add-todo' %}" hx-target = "#post-list" hx-swap = "innerHTMl">
         {% csrf_token %}
       <div class="row g-3">
         
-          <div class="col-sm-8 col-md-8">
-            <input
-              type="text"
-              name = "task"
-              class="form-control"
-              placeholder="Write Your Daily Task Here."
-            />
+          <div class="col-sm-9 col-md-9">
+{#            <input#}
+{#              type="text"#}
+{#              name = "post"#}
+{#              class="form-control"#}
+{#              placeholder="Write your message of appreciation here"#}
+{#              rows="3"#}
+{#            />#}
+              <textarea
+                      name="post"
+                      class="form-control"
+                      placeholder="Write your message of appreciation here"
+                      rows="4">
+              </textarea>
           </div>
           <div class="col-sm d-grid gap-2">
-            <button type="submit" class="btn btn-outline-dark">Add Task</button>
+            <button type="submit" class="btn btn-outline-dark">Add Message</button>
           </div>
         
       </div>
