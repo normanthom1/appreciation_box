@@ -10,34 +10,46 @@ from django.contrib.auth.decorators import login_required
 import datetime
 # Create your views here.
 
+def filter_posts():
+    date = datetime.date.today()
+    startweek = date - datetime.timedelta(date.weekday())
+    endweek = startweek + datetime.timedelta(7)
+    posts = Post.objects.filter(created_at__range=[startweek, endweek]).order_by('-created_at')
+    return posts
+
 
 @login_required(login_url='login')
 def home(request):
     date = datetime.date.today()
     startweek = date - datetime.timedelta(date.weekday())
     endweek = startweek + datetime.timedelta(7)
-    posts = Post.objects.filter(created_at__range=[startweek, endweek]).order_by('-created_at')
+    # posts = Post.objects.filter(created_at__range=[startweek, endweek]).order_by('-created_at')
+    posts = filter_posts()
     return render(request, 'base.html', {'posts': posts})
 
 
 def add_post(request):
-    posts = Post.objects.filter(user=request.user).order_by('-created_at')
+    # posts = Post.objects.filter(user=request.user).order_by('-created_at')
+    posts = filter_posts()
     if request.method == "POST":
         post = request.POST['post']
-
         post = Post.objects.create(
             post=post,
             user=request.user
         )
         post.save()
-    return render(request, 'components/posts.html', {'posts': posts})
+        context = {
+            'posts': posts
+        }
+    return render(request, 'components/posts.html', context)
 
 
 def delete_todo(request, id):
     todo = Post.objects.get(pk=id)
     print(todo)
     todo.delete()
-    posts = Post.objects.filter(user=request.user).order_by('-created_at')
+    # posts = Post.objects.filter(user=request.user).order_by('-created_at')
+    posts = filter_posts()
     return render(request, 'components/posts.html', {'posts': posts})
 
 
