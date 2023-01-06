@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  django:
+    image: django-docker:0.0.1
+    build:
+      context: ./
+      args:
+        http_proxy:  http://10.174.8.26:3128
+        https_proxy: http://10.174.8.26:3128
+    ports:
+      - "8004:800"
