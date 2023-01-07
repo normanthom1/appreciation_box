@@ -5,8 +5,10 @@
         <div class="col-lg-6 col-md-8 float-start">
           <h1 class="display-3">Appreciation Box</h1>
           <p class="lead text-white">
-            Hello,<strong>{{user.first_name}}</strong> Here posts for the week
+            Add your message to the appreciation box to show gratitude towards your work mates,
+              job or life in general!
           </p>
+            <p> {{ quote }} - <i> {{ author }}</i></p>
           <p class="lead text-white">
             {% if user.is_authenticated %}
             <span><a href="{% url 'logout_user' %}">Logout</a></span>

@@ -8,6 +8,8 @@ from django.contrib.auth import logout
 from . models import Post
 from django.contrib.auth.decorators import login_required
 import datetime
+import random
+# from .quotes import quotes
 # Create your views here.
 
 def filter_posts():
@@ -17,15 +19,34 @@ def filter_posts():
     posts = Post.objects.filter(created_at__range=[startweek, endweek]).order_by('-created_at')
     return posts
 
+quotes = [
+    ("JFK", "As we express our gratitude, we must never forget that the "
+            "highest appreciation is not to utter words, but to live by them."),
+    ("Ralph Waldo Emerson", "You cannot do a kindness too soon because you "
+                            "never know how soon it will be too late."),
+    ("Robert Holden", "The real gift of gratitude is that the more grateful "
+                      "you are, the more present you become."),
+    ("Kristin Armstrong", "When we focus on our gratitude, the tide of disappointment "
+                          "goes out and the tide of love rushes in.")
+]
+
+def generate_random_quote():
+    num = random.randint(0, 3)
+    author = quotes[num][0]
+    quote = quotes[num][1]
+    return author, quote
 
 @login_required(login_url='login')
 def home(request):
-    date = datetime.date.today()
-    startweek = date - datetime.timedelta(date.weekday())
-    endweek = startweek + datetime.timedelta(7)
-    # posts = Post.objects.filter(created_at__range=[startweek, endweek]).order_by('-created_at')
     posts = filter_posts()
-    return render(request, 'base.html', {'posts': posts})
+    author, quote = generate_random_quote()
+    context = {
+        'posts': posts,
+        'author': author,
+        'quote': quote,
+    }
+
+    return render(request, 'base.html', context)
 
 
 def add_post(request):
@@ -100,7 +121,13 @@ def register(request):
             messages.warning(request, "Password don't Match")
             return redirect('register')
 
-    return render(request, 'components/register.html')
+    author, quote = generate_random_quote()
+    context = {
+        'author': author,
+        'quote': quote
+    }
+
+    return render(request, 'components/register.html', context)
 
 
 def login(request):
@@ -117,7 +144,13 @@ def login(request):
             messages.warning(request, "Invalid Credentials")
             return redirect('login')
 
-    return render(request, 'components/login.html')
+    author, quote = generate_random_quote()
+    context = {
+        'author': author,
+        'quote': quote
+    }
+
+    return render(request, 'components/login.html', context)
 
 
 def logout_user(request):
