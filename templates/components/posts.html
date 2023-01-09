@@ -8,6 +8,10 @@
             <h3>This weeks messages</h3>
           </div>
          <div class="card-body">
+           <div class="mb-3" hx-get="{% url 'choose_winner' %}"
+                hx-swap="innerHTML settle:1s">
+                    <button class="btn btn-success btn-lg btn-block">Choose the winner</button>
+            </div>
            <!-- first -->
            {% for post in posts %}
              <div class="alert alert-secondary" role="alert">

@@ -64,6 +64,18 @@ def add_post(request):
         }
     return render(request, 'components/posts.html', context)
 
+def choose_winner(request):
+    posts = filter_posts()
+    winner = random.choices(posts, k=1)[0]
+    print(winner.post)
+    context = {
+        'posts': posts,
+        'winner': winner
+    }
+
+    return render(request, 'components/winning-post.html', context)
+
+
 
 def delete_todo(request, id):
     todo = Post.objects.get(pk=id)

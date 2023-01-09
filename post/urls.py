@@ -11,5 +11,6 @@ urlpatterns = [
     path('add-todo', views.add_post, name='add-todo'),
     path('mark-complete/<int:id>/', views.mark_complete, name='mark-complete'),
     path('delete-todo/<int:id>/', views.delete_todo, name='delete-todo'),
+    path('winner/', views.choose_winner, name='choose_winner')
 
 ]
